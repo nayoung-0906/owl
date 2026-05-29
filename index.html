@@ -1,127 +1,427 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사회복지 실무역량</title>
-    <style>
-        /* 기본 자연스러운 파란색 테마 설정 */
-        body {
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            margin: 0;
-            padding: 40px 20px;
-            color: #334155;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>사회복지 실무역량</title>
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Pretendard','Malgun Gothic',sans-serif;
+    }
 
-        header h1 {
-            color: #0369a1;
-            font-size: 2.5rem;
-            margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
+    body{
+      background: linear-gradient(135deg,#dff4ff,#b6e0ff,#e9f7ff);
+      min-height:100vh;
+      color:#1e3a5f;
+      overflow-x:hidden;
+    }
 
-        header p {
-            color: #0c4a6e;
-            margin-top: 10px;
-            font-size: 1.1rem;
-        }
+    .background-wave{
+      position:fixed;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      z-index:-1;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4), transparent 20%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.3), transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.25), transparent 25%);
+      animation: moveBg 15s infinite alternate ease-in-out;
+    }
 
-        /* 메인 컨테이너 그리드 */
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            width: 100%;
-        }
+    @keyframes moveBg{
+      from{
+        transform:translateY(0px);
+      }
+      to{
+        transform:translateY(-20px);
+      }
+    }
 
-        /* 창모드(Card) 스타일 정의 */
-        .window-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
+    header{
+      width:100%;
+      padding:30px;
+      text-align:center;
+      background:rgba(0,90,170,0.8);
+      backdrop-filter: blur(10px);
+      color:white;
+      box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    }
 
-        .window-card:hover {
-            transform: translateY(-5px);
-        }
+    header h1{
+      font-size:2.8rem;
+      margin-bottom:10px;
+      letter-spacing:2px;
+    }
 
-        /* 창모드 상단 바 (타이틀 바) */
-        .window-header {
-            background: #0284c7;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    header p{
+      font-size:1.1rem;
+      opacity:0.95;
+    }
 
-        .window-title {
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .container{
+      width:95%;
+      max-width:1400px;
+      margin:40px auto;
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap:25px;
+    }
 
-        /* 윈도우 조작 버튼 모양 (디자인 요소) */
-        .window-buttons {
-            display: flex;
-            gap: 6px;
-        }
+    .window{
+      background:rgba(255,255,255,0.75);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.12);
+      backdrop-filter: blur(10px);
+      transition:0.3s;
+    }
 
-        .btn-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        .btn-close { background-color: #ef4444; }
-        .btn-minimize { background-color: #f59e0b; }
-        .btn-maximize { background-color: #10b981; }
+    .window:hover{
+      transform:translateY(-5px);
+    }
 
-        /* 창모드 내부 콘텐츠 */
-        .window-content {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .window-header{
+      background:linear-gradient(90deg,#1976d2,#42a5f5);
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:white;
+      font-weight:bold;
+      font-size:1.05rem;
+    }
 
-        /* 요소별 내부 스타일 */
-        .weather-info {
-            text-align: center;
-            padding: 10px 0;
-        }
+    .dots{
+      display:flex;
+      gap:6px;
+    }
 
-        .weather-city {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #0369a1;
-            margin-bottom: 10px;
-        }
+    .dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+    }
 
-        .news-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    .red{background:#ff5f57;}
+    .yellow{background:#febc2e;}
+    .green{background:#28c840;}
 
-        .news-list li {
-            margin-bottom: 12px;
-            border-bottom: 1px
+    .window-body{
+      padding:20px;
+      min-height:320px;
+      background:rgba(255,255,255,0.65);
+    }
+
+    iframe{
+      width:100%;
+      height:300px;
+      border:none;
+      border-radius:10px;
+    }
+
+    .weather-box{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:300px;
+      text-align:center;
+    }
+
+    .weather-icon{
+      font-size:5rem;
+      margin-bottom:10px;
+    }
+
+    .weather-temp{
+      font-size:3rem;
+      font-weight:bold;
+      color:#1565c0;
+    }
+
+    .weather-desc{
+      font-size:1.2rem;
+      margin-top:10px;
+    }
+
+    .news-list{
+      list-style:none;
+    }
+
+    .news-list li{
+      margin-bottom:15px;
+      padding-bottom:12px;
+      border-bottom:1px solid #dbeeff;
+    }
+
+    .news-list a{
+      text-decoration:none;
+      color:#0d47a1;
+      font-weight:600;
+      line-height:1.5;
+      transition:0.2s;
+    }
+
+    .news-list a:hover{
+      color:#1976d2;
+    }
+
+    .stats{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .stat-item{
+      background:linear-gradient(135deg,#e3f2fd,#ffffff);
+      padding:18px;
+      border-radius:15px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .stat-title{
+      font-size:1rem;
+      font-weight:bold;
+      margin-bottom:10px;
+      color:#1565c0;
+    }
+
+    .bar{
+      width:100%;
+      height:22px;
+      background:#d6ecff;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .fill{
+      height:100%;
+      border-radius:20px;
+      background:linear-gradient(90deg,#1e88e5,#64b5f6);
+    }
+
+    .footer{
+      text-align:center;
+      padding:30px;
+      color:#3b5f7f;
+      font-size:0.95rem;
+    }
+
+    @media(max-width:768px){
+      header h1{
+        font-size:2rem;
+      }
+
+      .window-body{
+        min-height:auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="background-wave"></div>
+
+<header>
+  <h1>사회복지 실무역량</h1>
+  <p>사회복지 정보 · 뉴스 · 통계 통합 플랫폼</p>
+</header>
+
+<div class="container">
+
+  <!-- 날씨 -->
+  <div class="window">
+    <div class="window-header">
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      부산 날씨
+    </div>
+
+    <div class="window-body">
+      <div class="weather-box">
+        <div class="weather-icon">🌤️</div>
+        <div class="weather-temp" id="temp">24°C</div>
+        <div class="weather-desc" id="weatherDesc">맑고 시원한 날씨</div>
+        <br>
+        <p id="today"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 부산 뉴스 -->
+  <div class="window">
+    <div class="window-header">
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      부산 뉴스
+    </div>
+
+    <div class="window-body">
+      <ul class="news-list">
+        <li>
+          <a href="https://www.busan.com/" target="_blank">
+            부산일보 - 지역사회 복지 정책 확대 추진
+          </a>
+        </li>
+
+        <li>
+          <a href="https://news.kbs.co.kr/" target="_blank">
+            부산 고령사회 대응 복지 서비스 강화
+          </a>
+        </li>
+
+        <li>
+          <a href="https://www.yna.co.kr/" target="_blank">
+            부산시 청년 복지 지원사업 확대
+          </a>
+        </li>
+
+        <li>
+          <a href="https://www.busan.go.kr/" target="_blank">
+            부산광역시 공식 복지 정책 안내
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 부경대 뉴스 -->
+  <div class="window">
+    <div class="window-header">
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      부경대 뉴스
+    </div>
+
+    <div class="window-body">
+      <ul class="news-list">
+
+        <li>
+          <a href="https://www.pknu.ac.kr/main" target="_blank">
+            국립부경대학교 공식 홈페이지
+          </a>
+        </li>
+
+        <li>
+          <a href="https://www.pknu.ac.kr/main/163" target="_blank">
+            부경대학교 공지사항 및 대학 소식
+          </a>
+        </li>
+
+        <li>
+          <a href="https://www.pknu.ac.kr/main/164" target="_blank">
+            학생 활동 및 학사 정보
+          </a>
+        </li>
+
+        <li>
+          <a href="https://www.pknu.ac.kr/main/165" target="_blank">
+            지역사회 연계 프로그램 운영
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- 사회복지 통계 -->
+  <div class="window">
+    <div class="window-header">
+      <div class="dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      사회복지 관련 통계
+    </div>
+
+    <div class="window-body">
+      <div class="stats">
+
+        <div class="stat-item">
+          <div class="stat-title">노인 복지 서비스 이용률</div>
+          <div class="bar">
+            <div class="fill" style="width:78%;"></div>
+          </div>
+          <br>
+          <strong>78%</strong>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-title">청년 복지 정책 만족도</div>
+          <div class="bar">
+            <div class="fill" style="width:64%;"></div>
+          </div>
+          <br>
+          <strong>64%</strong>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-title">지역사회 복지 참여율</div>
+          <div class="bar">
+            <div class="fill" style="width:52%;"></div>
+          </div>
+          <br>
+          <strong>52%</strong>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 사회복지 실무역량 | GitHub Pages Website
+</div>
+
+<script>
+
+  // 오늘 날짜 표시
+  const today = new Date();
+
+  const formatDate = today.getFullYear() + "년 "
+      + (today.getMonth()+1) + "월 "
+      + today.getDate() + "일";
+
+  document.getElementById("today").innerText = formatDate;
+
+  // 간단한 시간 기반 날씨 표시
+  const hour = today.getHours();
+
+  const temp = document.getElementById("temp");
+  const desc = document.getElementById("weatherDesc");
+
+  if(hour >= 6 && hour < 12){
+    temp.innerText = "22°C";
+    desc.innerText = "상쾌한 아침 날씨";
+  }
+  else if(hour >= 12 && hour < 18){
+    temp.innerText = "26°C";
+    desc.innerText = "따뜻한 오후 날씨";
+  }
+  else{
+    temp.innerText = "20°C";
+    desc.innerText = "선선한 저녁 날씨";
+  }
+
+</script>
+
+</body>
+</html>
