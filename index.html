@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사회복지 실무역량</title>
+    <style>
+        /* 자연스럽고 신뢰감을 주는 초록색 테마 정의 */
+        :root {
+            --primary-color: #1b5e20; /* 깊은 숲 속 초록 */
+            --secondary-color: #4caf50; /* 싱그러운 나뭇잎 연두 */
+            --light-bg: #f4f9f4; /* 편안하고 연한 초록빛 배경 */
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #666666;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', dotum, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.3rem;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            margin: 0.8rem 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 2.5rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+            gap: 2rem;
+        }
+
+        /* 모바일 대응을 위한 미디어 쿼리 */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 카드 보드 스타일 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+            border-top: 6px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 0.7rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 1. 날씨 스타일 */
+        .weather-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #e8f5e9;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+        }
+        .weather-status {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .weather-temp {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2e7d32;
+        }
+
+        /* 2 & 3. 리스트 스타일 (뉴스) */
+        .news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .news-list li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+        .news-list a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .news-list a:hover {
+            color: var(--secondary-color);
+            padding-left: 4px;
+            transition: all 0.2s ease;
+        }
+
+        /* 4. 통계 테이블 스타일 */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+        .stats-table th, .stats-table td {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .stats-table th {
+            background-color: #e8f5e9;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .stats-table tr:nth-child(even) {
+            background-color: #f9fbf9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: #e8f5e9;
+            margin-top: 4rem;
+            border-top: 1px solid #ddeedd;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>사회복지 실무역량 연구소 🌿</h1>
+        <p>현장 중심의 전문 지식과 지역사회 트렌드를 연결합니다.</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="card">
+            <h2>☀️ 오늘의 지역 날씨 (부산)</h2>
+            <div class="weather-container">
+                <div>
+                    <span class="weather-status">맑음 (야외 복지 활동 적합)</span>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                        미세먼지: 좋음 | 습도: 50%
+                    </div>
+                </div>
+                <div class="weather-temp">22°C</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📰 부산 주요 복지·지역 뉴스</h2>
+            <ul class="news-list">
+                <li><a href="#" onclick="alert('뉴스 허브로 연결됩니다.'); return false;">• 부산시, 2026년 교통약자 이동 편의 증진 계획 발표</a></li>
+                <li><a href="#" onclick="alert('뉴스 허브로 연결됩니다.'); return false;">• 부산형 통합돌봄 시범사업, 주민 만족도 92% 달성</a></li>
+                <li><a href="#" onclick="alert('뉴스 허브로 연결됩니다.'); return false;">• 부산시 사회복지관 연합회, '현장 실무자 워크숍' 개최 예정</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🏫 부경대학교 소식</h2>
+            <ul class="news-list">
+                <li><a href="#" onclick="alert('부경대 공지사항 채널로 연결됩니다.'); return false;">• [행사] 부경대, 2026학년도 상반기 지역사회 상생 파트너십 데이 개최</a></li>
+                <li><a href="#" onclick="alert('부경대 공지사항 채널로 연결됩니다.'); return false;">• [모집] 사회과학대학 주관 '현장 밀착형 복지 실무 역량 강화 캠프'</a></li>
+                <li><a href="#" onclick="alert('부경대 공지사항 채널로 연결됩니다.'); return false;">• [학술] 부경대 연구팀, '인공지능(AI) 기반 취약계층 돌봄 시스템' 논문 발표</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📊 사회복지 지표 및 통계</h2>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>2024년</th>
+                        <th>2025년</th>
+                        <th>2026년 (현황)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>사회복지사 자격 취득 수</strong></td>
+                        <td>약 7.2만 명</td>
+                        <td>약 7.5만 명</td>
+                        <td>약 7.9만 명</td>
+                    </tr>
+                    <tr>
+                        <td><strong>지자체 복지 예산 비중</strong></td>
+                        <td>34.5%</td>
+                        <td>35.8%</td>
+                        <td>37.2%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>찾아가는 돌봄 서비스 비율</strong></td>
+                        <td>58%</td>
+                        <td>64%</td>
+                        <td>71%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 사회복지 실무역량 플랫폼. 자연과 사람을 잇는 지속 가능한 복지.</p>
+    </footer>
+
+</body>
+</html>
