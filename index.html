@@ -22,7 +22,7 @@
 
     .slider {
       display: flex;
-      width: 400vw;
+      width: 500vw;
       height: 100vh;
       transition: transform 0.8s ease-in-out;
     }
@@ -282,6 +282,47 @@
   </div>
 </section>
 
+<!-- 고독사 통계 -->
+<section class="nature-bg">
+  <div class="glass">
+    <h2>고독사 사망자 통계</h2>
+
+    <p style="margin-bottom:25px;">
+      보건복지부 「2024년 고독사 사망자 실태조사」 기준 최근 고독사 현황입니다.
+    </p>
+
+    <div style="background:rgba(255,255,255,0.2); padding:20px; border-radius:20px; margin-bottom:25px;">
+      <canvas id="lonelyDeathChart" height="120"></canvas>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>3,661명</h3>
+        <p>2023년 고독사 사망자</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>84.1%</h3>
+        <p>남성 비율</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>60대</h3>
+        <p>가장 높은 비율 연령대</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>48.1%</h3>
+        <p>주택 발생 비율</p>
+      </div>
+    </div>
+
+    <p style="margin-top:25px; font-size:0.95rem; opacity:0.85;">
+      출처: 보건복지부 2024년 고독사 사망자 실태조사
+    </p>
+  </div>
+</section>
+
 <!-- 부경대 뉴스 + 통계 -->
 <section class="nature-bg">
   <div class="glass">
@@ -331,9 +372,51 @@
     <button onclick="moveSlide(1)"></button>
     <button onclick="moveSlide(2)"></button>
     <button onclick="moveSlide(3)"></button>
+    <button onclick="moveSlide(4)"></button>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
+    const ctx = document.getElementById('lonelyDeathChart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2019', '2020', '2021', '2022', '2023'],
+        datasets: [{
+          label: '고독사 사망자 수',
+          data: [2949, 3279, 3378, 3559, 3661],
+          borderWidth: 3,
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#083b66'
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              color: '#083b66'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#083b66'
+            }
+          }
+        }
+      }
+    });
+
+
     const slider = document.getElementById('slider');
     const buttons = document.querySelectorAll('.nav-buttons button');
 
@@ -350,7 +433,7 @@
     // 마우스 휠 화면 전환
     window.addEventListener('wheel', (e) => {
       if (e.deltaY > 0) {
-        currentSlide = Math.min(currentSlide + 1, 3);
+        currentSlide = Math.min(currentSlide + 1, 4);
       } else {
         currentSlide = Math.max(currentSlide - 1, 0);
       }
