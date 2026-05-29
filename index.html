@@ -1,455 +1,374 @@
-<!-- 파일명: index.html -->
+# index.html
+
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>사회복지 실무역량</title>
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Pretendard','Malgun Gothic',sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
     }
 
-    body{
-      background:
-        linear-gradient(rgba(220,240,255,0.8), rgba(220,240,255,0.9)),
-        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1920&auto=format&fit=crop');
-      background-size:cover;
-      background-position:center;
-      background-attachment:fixed;
-      min-height:100vh;
-      color:#0d3b66;
-      overflow-x:hidden;
+    body {
+      overflow: hidden;
+      background: linear-gradient(180deg, #dff4ff, #b7dcff, #89c6ff);
+      color: #083b66;
     }
 
-    .overlay{
-      width:100%;
-      min-height:100vh;
-      backdrop-filter:blur(4px);
-      padding-bottom:50px;
+    .slider {
+      display: flex;
+      width: 400vw;
+      height: 100vh;
+      transition: transform 0.8s ease-in-out;
     }
 
-    header{
-      text-align:center;
-      padding:40px 20px;
+    section {
+      width: 100vw;
+      height: 100vh;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    header h1{
-      font-size:3rem;
-      color:#0b4f8a;
-      margin-bottom:10px;
-      text-shadow:0 2px 10px rgba(255,255,255,0.6);
+    .glass {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      padding: 40px;
+      width: 80%;
+      max-width: 1000px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
-    header p{
-      font-size:1.1rem;
-      color:#245b86;
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(255,255,255,0.5);
     }
 
-    .container{
-      width:95%;
-      max-width:1400px;
-      margin:auto;
-
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:25px;
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
 
-    /* 창모드 스타일 */
-    .window{
-      background:rgba(255,255,255,0.78);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:
-        0 8px 25px rgba(0,0,0,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.6);
-      backdrop-filter:blur(12px);
-      transition:0.3s;
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
     }
 
-    .window:hover{
-      transform:translateY(-5px);
+    .nature-bg::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      top: -150px;
+      left: -100px;
+      z-index: 0;
     }
 
-    .window-header{
-      background:linear-gradient(90deg,#1976d2,#42a5f5);
-      color:white;
-      padding:12px 18px;
-
-      display:flex;
-      align-items:center;
-      gap:12px;
-
-      font-weight:bold;
-      letter-spacing:0.5px;
+    .nature-bg::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      bottom: -250px;
+      right: -200px;
+      z-index: 0;
     }
 
-    .buttons{
-      display:flex;
-      gap:6px;
+    .glass * {
+      position: relative;
+      z-index: 2;
     }
 
-    .btn{
-      width:12px;
-      height:12px;
-      border-radius:50%;
+    .news-list {
+      list-style: none;
+      margin-top: 20px;
     }
 
-    .red{background:#ff5f57;}
-    .yellow{background:#febc2e;}
-    .green{background:#28c840;}
-
-    .window-body{
-      padding:22px;
-      min-height:320px;
+    .news-list li {
+      background: rgba(255,255,255,0.35);
+      margin-bottom: 12px;
+      padding: 16px;
+      border-radius: 15px;
+      transition: 0.3s;
     }
 
-    /* 날씨 */
-    .weather-box{
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      height:100%;
+    .news-list li:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.5);
     }
 
-    .weather-icon{
-      font-size:5rem;
-      margin-bottom:15px;
+    .weather-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
-    .temp{
-      font-size:3rem;
-      font-weight:bold;
-      color:#1565c0;
+    .weather-item {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(255,255,255,0.25);
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
     }
 
-    .desc{
-      font-size:1.2rem;
-      margin-top:10px;
+    .weather-item h3 {
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
 
-    .date{
-      margin-top:15px;
-      color:#4e6f8d;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
     }
 
-    /* 뉴스 */
-    .news-list{
-      list-style:none;
+    .stat-card {
+      background: rgba(255,255,255,0.25);
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
     }
 
-    .news-list li{
-      margin-bottom:18px;
-      padding-bottom:15px;
-      border-bottom:1px solid #d8ebff;
+    .stat-card h3 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: #005a9c;
     }
 
-    .news-list a{
-      text-decoration:none;
-      color:#0b4f8a;
-      font-weight:600;
-      line-height:1.6;
-      transition:0.2s;
+    .nav-buttons {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
     }
 
-    .news-list a:hover{
-      color:#1976d2;
+    .nav-buttons button {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: 0.3s;
     }
 
-    /* 통계 */
-    .stat-box{
-      margin-bottom:25px;
+    .nav-buttons button.active {
+      transform: scale(1.4);
+      background: #ffffff;
     }
 
-    .stat-title{
-      font-weight:bold;
-      margin-bottom:10px;
-      color:#0d47a1;
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
-    .bar{
-      width:100%;
-      height:24px;
-      background:#d8ecff;
-      border-radius:20px;
-      overflow:hidden;
-    }
-
-    .fill{
-      height:100%;
-      border-radius:20px;
-      background:linear-gradient(90deg,#1e88e5,#64b5f6);
-    }
-
-    .percent{
-      margin-top:8px;
-      font-weight:bold;
-      color:#1565c0;
-    }
-
-    footer{
-      text-align:center;
-      margin-top:50px;
-      color:#3d6789;
-      padding:20px;
-      font-size:0.95rem;
-    }
-
-    @media(max-width:768px){
-
-      header h1{
-        font-size:2.1rem;
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
       }
 
-      .window-body{
-        min-height:auto;
+      h2 {
+        font-size: 2rem;
       }
 
+      .glass {
+        width: 92%;
+        padding: 25px;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
-
 <body>
 
-<div class="overlay">
+  <div class="slider" id="slider">
 
-  <header>
-    <h1>사회복지 실무역량</h1>
-    <p>사회복지 · 뉴스 · 통계 통합 정보 플랫폼</p>
-  </header>
-
-  <div class="container">
+    <!-- 메인 -->
+    <section class="nature-bg">
+      <div class="glass">
+        <h1>사회복지 실무역량</h1>
+        <p>
+          사회복지 현장의 최신 정보와 데이터를 한눈에 확인할 수 있는 통합 플랫폼입니다.<br><br>
+          날씨 · 부산 뉴스 · 부경대 뉴스 · 사회복지 통계를 화면 전환 방식으로 제공합니다.
+        </p>
+      </div>
+      <div class="footer">GitHub Pages용 단일 HTML 페이지</div>
+    </section>
 
     <!-- 날씨 -->
-    <div class="window">
-
-      <div class="window-header">
-        <div class="buttons">
-          <div class="btn red"></div>
-          <div class="btn yellow"></div>
-          <div class="btn green"></div>
-        </div>
-
-        부산 날씨
-      </div>
-
-      <div class="window-body">
+    <section class="nature-bg">
+      <div class="glass">
+        <h2>오늘의 날씨</h2>
 
         <div class="weather-box">
-
-          <div class="weather-icon">🌿☀️</div>
-
-          <div class="temp" id="temp">25°C</div>
-
-          <div class="desc" id="weatherText">
-            맑고 쾌적한 날씨
+          <div class="weather-item">
+            <h3>☀️</h3>
+            <p><strong>부산</strong></p>
+            <p>24°C</p>
+            <p>맑음</p>
           </div>
 
-          <div class="date" id="today"></div>
+          <div class="weather-item">
+            <h3>🌤️</h3>
+            <p><strong>서울</strong></p>
+            <p>22°C</p>
+            <p>구름 조금</p>
+          </div>
 
+          <div class="weather-item">
+            <h3>🌧️</h3>
+            <p><strong>제주</strong></p>
+            <p>20°C</p>
+            <p>비</p>
+          </div>
         </div>
-
       </div>
-    </div>
+    </section>
 
     <!-- 부산 뉴스 -->
-    <div class="window">
-
-      <div class="window-header">
-        <div class="buttons">
-          <div class="btn red"></div>
-          <div class="btn yellow"></div>
-          <div class="btn green"></div>
-        </div>
-
-        부산 뉴스
-      </div>
-
-      <div class="window-body">
+    <section class="nature-bg">
+      <div class="glass">
+        <h2>부산 뉴스</h2>
 
         <ul class="news-list">
-
           <li>
-            <a href="https://www.busan.com/" target="_blank">
-              부산시 복지 지원 정책 확대 추진
-            </a>
+            부산시, 복지 사각지대 지원 확대 정책 발표
           </li>
 
           <li>
-            <a href="https://www.kookje.co.kr/" target="_blank">
-              지역사회 돌봄 서비스 강화 계획 발표
-            </a>
+            부산 지역 청년 복지센터 신규 프로그램 운영
           </li>
 
           <li>
-            <a href="https://www.yna.co.kr/" target="_blank">
-              부산 청년 복지 프로그램 참여 증가
-            </a>
+            부산 해운대구 노인 돌봄 서비스 강화
           </li>
 
           <li>
-            <a href="https://www.busan.go.kr/" target="_blank">
-              부산광역시 사회복지 정책 안내
-            </a>
+            부산시 사회복지 예산 전년 대비 증가
           </li>
-
         </ul>
-
       </div>
-    </div>
+    </section>
 
-    <!-- 부경대 뉴스 -->
-    <div class="window">
-
-      <div class="window-header">
-        <div class="buttons">
-          <div class="btn red"></div>
-          <div class="btn yellow"></div>
-          <div class="btn green"></div>
-        </div>
-
-        부경대학교 뉴스
-      </div>
-
-      <div class="window-body">
+    <!-- 부경대 뉴스 + 통계 -->
+    <section class="nature-bg">
+      <div class="glass">
+        <h2>부경대 뉴스 & 사회복지 통계</h2>
 
         <ul class="news-list">
-
           <li>
-            <a href="https://www.pknu.ac.kr/" target="_blank">
-              국립부경대학교 공식 홈페이지
-            </a>
+            부경대학교 사회복지학과 지역 연계 프로그램 운영
           </li>
 
           <li>
-            <a href="https://www.pknu.ac.kr/main/163" target="_blank">
-              부경대학교 최신 공지사항
-            </a>
+            부경대 학생 복지 실습 프로젝트 확대
           </li>
-
-          <li>
-            <a href="https://www.pknu.ac.kr/main/164" target="_blank">
-              학생 활동 및 지역사회 연계 프로그램
-            </a>
-          </li>
-
-          <li>
-            <a href="https://www.pknu.ac.kr/main/165" target="_blank">
-              사회복지 관련 대학 활동 소개
-            </a>
-          </li>
-
         </ul>
 
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>68%</h3>
+            <p>복지 서비스 만족도</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>1,245명</h3>
+            <p>지역 복지 참여 인원</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>82%</h3>
+            <p>실습 프로그램 참여율</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>39개</h3>
+            <p>협력 사회복지 기관</p>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <!-- 통계 -->
-    <div class="window">
-
-      <div class="window-header">
-        <div class="buttons">
-          <div class="btn red"></div>
-          <div class="btn yellow"></div>
-          <div class="btn green"></div>
-        </div>
-
-        사회복지 관련 통계
-      </div>
-
-      <div class="window-body">
-
-        <div class="stat-box">
-          <div class="stat-title">
-            노인 복지 서비스 이용률
-          </div>
-
-          <div class="bar">
-            <div class="fill" style="width:78%;"></div>
-          </div>
-
-          <div class="percent">78%</div>
-        </div>
-
-        <div class="stat-box">
-          <div class="stat-title">
-            청년 복지 정책 만족도
-          </div>
-
-          <div class="bar">
-            <div class="fill" style="width:64%;"></div>
-          </div>
-
-          <div class="percent">64%</div>
-        </div>
-
-        <div class="stat-box">
-          <div class="stat-title">
-            지역사회 복지 참여율
-          </div>
-
-          <div class="bar">
-            <div class="fill" style="width:52%;"></div>
-          </div>
-
-          <div class="percent">52%</div>
-        </div>
-
-      </div>
-    </div>
+    </section>
 
   </div>
 
-  <footer>
-    © 2026 사회복지 실무역량 | GitHub Pages
-  </footer>
+  <!-- 네비게이션 -->
+  <div class="nav-buttons">
+    <button class="active" onclick="moveSlide(0)"></button>
+    <button onclick="moveSlide(1)"></button>
+    <button onclick="moveSlide(2)"></button>
+    <button onclick="moveSlide(3)"></button>
+  </div>
 
-</div>
+  <script>
+    const slider = document.getElementById('slider');
+    const buttons = document.querySelectorAll('.nav-buttons button');
 
-<script>
+    let currentSlide = 0;
 
-  // 날짜 출력
-  const today = new Date();
+    function moveSlide(index) {
+      currentSlide = index;
+      slider.style.transform = `translateX(-${index * 100}vw)`;
 
-  const dateText =
-    today.getFullYear() + "년 "
-    + (today.getMonth()+1) + "월 "
-    + today.getDate() + "일";
+      buttons.forEach(btn => btn.classList.remove('active'));
+      buttons[index].classList.add('active');
+    }
 
-  document.getElementById("today").innerText = dateText;
+    // 마우스 휠 화면 전환
+    window.addEventListener('wheel', (e) => {
+      if (e.deltaY > 0) {
+        currentSlide = Math.min(currentSlide + 1, 3);
+      } else {
+        currentSlide = Math.max(currentSlide - 1, 0);
+      }
 
-  // 시간에 따른 날씨 문구 변경
-  const hour = today.getHours();
+      moveSlide(currentSlide);
+    });
 
-  const temp = document.getElementById("temp");
-  const weatherText = document.getElementById("weatherText");
+    // 키보드 화면 전환
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        currentSlide = Math.min(currentSlide + 1, 3);
+      }
 
-  if(hour >= 6 && hour < 12){
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        currentSlide = Math.max(currentSlide - 1, 0);
+      }
 
-    temp.innerText = "22°C";
-    weatherText.innerText = "상쾌한 아침 날씨";
-
-  } else if(hour >= 12 && hour < 18){
-
-    temp.innerText = "26°C";
-    weatherText.innerText = "따뜻하고 맑은 오후";
-
-  } else {
-
-    temp.innerText = "20°C";
-    weatherText.innerText = "시원한 저녁 날씨";
-
-  }
-
-</script>
+      moveSlide(currentSlide);
+    });
+  </script>
 
 </body>
 </html>
+```
